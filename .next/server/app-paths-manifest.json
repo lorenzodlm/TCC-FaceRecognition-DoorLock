@@ -1,11 +1,3 @@
 {
-  "/api/users/route": "app/api/users/route.js",
-  "/api/classes/route": "app/api/classes/route.js",
-  "/api/attendance/route": "app/api/attendance/route.js",
-  "/(demo)/courses/page": "app/(demo)/courses/page.js",
-  "/(demo)/users/classes/page": "app/(demo)/users/classes/page.js",
-  "/(demo)/dashboard/page": "app/(demo)/dashboard/page.js",
-  "/(demo)/account/page": "app/(demo)/account/page.js",
-  "/(demo)/users/attendance/page": "app/(demo)/users/attendance/page.js",
-  "/(demo)/users/page": "app/(demo)/users/page.js"
+  "/_not-found/page": "app/_not-found/page.js"
 }

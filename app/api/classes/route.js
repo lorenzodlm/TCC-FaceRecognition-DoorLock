@@ -1,24 +1,27 @@
 import { dbConnect } from '/app/lib/db';
-import Classes from '/app/models/class'; // Import your Classes model
+import Classes from '/app/models/class'; 
 
 // API handler for fetching classes
 export async function GET(req) {
     try {
         // Connect to the database
-        // await dbConnect();
+        // await dbConnect(); 
 
         // Extract query parameters from the request URL
         const { searchParams } = new URL(req.url);
         const teacherId = searchParams.get('teacherId');
         const classCode = searchParams.get('code');
+        const studentID = searchParams.get('studentId'); // New parameter
 
         let classes;
 
-        // Fetch classes by teacherId or classCode, or fetch all if no query params
+        // Fetch classes by teacherId, studentId, classCode, or fetch all if no query params
         if (teacherId) {
             classes = await Classes.find({ teacherId });
         } else if (classCode) {
-            classes = await Classes.find({ name: { $regex: classCode, $options: 'i' } }); // case-insensitive search
+            classes = await Classes.find({ name: { $regex: classCode, $options: 'i' } }); 
+        } else if (studentID) {
+            classes = await Classes.find({ studentIDs: studentID }); 
         } else {
             classes = await Classes.find({});
         }

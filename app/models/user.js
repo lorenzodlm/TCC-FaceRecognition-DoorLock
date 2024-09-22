@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
+    id: { 
+        type: Number, 
+        required: true 
+    },
     name: { 
         type: String, 
         required: true 
@@ -19,7 +23,7 @@ const UserSchema = new mongoose.Schema({
         enum: ['student', 'teacher', 'admin'], 
         default: 'student' 
     },
-    classIDs: { 
+    classIds: { 
         type: [String], 
         default: [] 
     },

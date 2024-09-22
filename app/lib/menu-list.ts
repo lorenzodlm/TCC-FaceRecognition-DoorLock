@@ -55,11 +55,6 @@ const adminMenuList: Group[] = [
             active: false,
           },
           {
-            href: "/users/classes",
-            label: "All Classes",
-            active: false,
-          },
-          {
             href: "/users/attendance",
             label: "Attendance",
             active: false,
@@ -67,7 +62,7 @@ const adminMenuList: Group[] = [
         ]
       },
       {
-        href: "/courses",
+        href: "/users/classes",
         label: "Courses",
         active: false,
         icon: Bookmark,
@@ -108,6 +103,18 @@ const teacherMenuList: Group[] = [
         submenus: []
       }
     ]
+  },
+  {
+    groupLabel: "Settings",
+    menus: [
+      {
+        href: "/account",
+        label: "Account",
+        active: false,
+        icon: Settings,
+        submenus: []
+      }
+    ]
   }
 ];
 
@@ -123,10 +130,22 @@ const studentMenuList: Group[] = [
         submenus: []
       },
       {
-        href: "/courses",
-        label: "My Courses",
+        href: "/studentClasses",
+        label: "My Classes",
         active: false,
         icon: Bookmark,
+        submenus: []
+      }
+    ]
+  },
+  {
+    groupLabel: "Settings",
+    menus: [
+      {
+        href: "/account",
+        label: "Account",
+        active: false,
+        icon: Settings,
         submenus: []
       }
     ]

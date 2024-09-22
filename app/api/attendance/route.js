@@ -1,11 +1,24 @@
-import Attendance from "/app/models/attendance"; 
-// 
-export async function GET(req) {
+import Attendance from "/app/models/attendance";
 
+export async function GET(req) {
     try {
-        console.log('Collection being accessed:', Attendance.collection.name);
-        const attendanceData = await Attendance.find({});
-        console.log("Attendance Data:", attendanceData); 
+        const { searchParams } = new URL(req.url);
+        const classId = searchParams.get('classId'); 
+        const studentId = searchParams.get('studentId'); 
+
+        if (!classId || !studentId) {
+            return new Response(
+                JSON.stringify({ error: "classId and studentId are required" }),
+                { status: 400 }
+            );
+        }
+
+        const attendanceData = await Attendance.find({
+            classId: classId,
+            studentID: studentId, 
+        });
+
+        console.log("Attendance Data:", attendanceData);
 
         return new Response(JSON.stringify(attendanceData), {
             status: 200,

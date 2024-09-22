@@ -25,7 +25,7 @@ export default function HomePage() {
               className="rounded-full w-8 h-8 bg-background"
               asChild
             >
-              <Link href="https://github.com/lorenzodlm/AfterFall-React">
+              <Link href="https://github.com/lorenzodlm/AfterFall-next">
                 <GitHubLogoIcon className="h-[1.2rem] w-[1.2rem]" />
               </Link>
             </Button>

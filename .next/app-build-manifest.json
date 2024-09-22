@@ -1,50 +1,19 @@
 {
   "pages": {
-    "/page": [
+    "/(demo)/studentClasses/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
-    "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
-    ],
-    "/(demo)/dashboard/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(demo)/dashboard/page.js"
+      "static/chunks/app/(demo)/studentClasses/layout.js"
     ],
     "/(demo)/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(demo)/layout.js"
     ],
-    "/(demo)/courses/page": [
+    "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(demo)/courses/page.js"
-    ],
-    "/(demo)/account/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(demo)/account/page.js"
-    ],
-    "/(demo)/users/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(demo)/users/page.js"
-    ],
-    "/(demo)/users/classes/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(demo)/users/classes/page.js"
-    ],
-    "/(demo)/users/attendance/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(demo)/users/attendance/page.js"
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

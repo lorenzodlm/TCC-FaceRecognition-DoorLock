@@ -30,12 +30,6 @@ export default function ClassesPage() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                <Link href="/users">Users</Link>
-                </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
                 <BreadcrumbPage>Classes</BreadcrumbPage>
             </BreadcrumbItem>
             </BreadcrumbList>

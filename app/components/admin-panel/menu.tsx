@@ -38,7 +38,7 @@ export function Menu({ isOpen, role }: MenuProps) {
     localStorage.removeItem('role');
     setUserName(null); 
     setUserEmail(null); 
-    window.location.href = window.location.href;
+    window.location.href = '/dashboard';
   };
 
   return (

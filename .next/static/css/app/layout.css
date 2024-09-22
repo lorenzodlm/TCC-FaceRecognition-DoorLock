@@ -777,6 +777,9 @@ video {
   .h-\[1\.2rem\] {
   height: 1.2rem;
 }
+  .h-\[1px\] {
+  height: 1px;
+}
   .h-full {
   height: 100%;
 }
@@ -836,6 +839,9 @@ video {
 }
   .w-\[1\.2rem\] {
   width: 1.2rem;
+}
+  .w-\[1px\] {
+  width: 1px;
 }
   .w-\[90px\] {
   width: 90px;
@@ -1153,6 +1159,10 @@ video {
   padding-left: 2rem;
   padding-right: 2rem;
 }
+  .py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
   .py-1\.5 {
   padding-top: 0.375rem;
   padding-bottom: 0.375rem;
@@ -1462,6 +1472,31 @@ video {
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+  .file\:border-0::file-selector-button {
+  border-width: 0px;
+}
+
+  .file\:bg-transparent::file-selector-button {
+  background-color: transparent;
+}
+
+  .file\:text-sm::file-selector-button {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+  .file\:font-medium::file-selector-button {
+  font-weight: 500;
+}
+
+  .file\:text-foreground::file-selector-button {
+  color: hsl(var(--foreground));
+}
+
+  .placeholder\:text-muted-foreground::placeholder {
+  color: hsl(var(--muted-foreground));
+}
+
   .hover\:cursor-pointer:hover {
   cursor: pointer;
 }
@@ -1552,8 +1587,20 @@ video {
   pointer-events: none;
 }
 
+  .disabled\:cursor-not-allowed:disabled {
+  cursor: not-allowed;
+}
+
   .disabled\:opacity-50:disabled {
   opacity: 0.5;
+}
+
+  .peer:disabled ~ .peer-disabled\:cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+  .peer:disabled ~ .peer-disabled\:opacity-70 {
+  opacity: 0.7;
 }
 
   .data-\[disabled\]\:pointer-events-none[data-disabled] {

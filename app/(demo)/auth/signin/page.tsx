@@ -7,7 +7,6 @@ export default function SignInPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const router = useRouter();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,7 +27,6 @@ export default function SignInPage() {
                 console.log('_id:', data._id);
                 console.log('User ID:', data.id);
                 console.log('User role:', data.role);
-                // router.push('/dashboard'); 
                 window.location.href = '/dashboard';
             } else {
                 setError(data.message); 
