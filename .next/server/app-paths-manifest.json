@@ -1,9 +1,0 @@
-{
-  "/api/users/route": "app/api/users/route.js",
-  "/api/classes/route": "app/api/classes/route.js",
-  "/api/attendance/route": "app/api/attendance/route.js",
-  "/icon.ico/route": "app/icon.ico/route.js",
-  "/(demo)/studentClasses/page": "app/(demo)/studentClasses/page.js",
-  "/(demo)/studentClasses/attendance/page": "app/(demo)/studentClasses/attendance/page.js",
-  "/(demo)/dashboard/page": "app/(demo)/dashboard/page.js"
-}
