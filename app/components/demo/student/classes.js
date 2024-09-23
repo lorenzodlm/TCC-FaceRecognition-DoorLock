@@ -1,12 +1,10 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation"; // Import useRouter
 import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/card";
 
 export default function ClassesPage() {
     const [classes, setClasses] = useState([]);
-    const router = useRouter(); // Initialize router
 
     useEffect(() => {
         const fetchClasses = async () => {
@@ -27,7 +25,7 @@ export default function ClassesPage() {
 
     const handleViewAttendance = (classId) => {
         const studentId = localStorage.getItem('id');
-        router.push(`/studentClasses/attendance?page=${classId}&studentId=${studentId}`);
+        window.location.href = `/studentClasses/attendance?classId=${classId}&studentId=${studentId}`;
     };
 
     return (
@@ -41,7 +39,7 @@ export default function ClassesPage() {
                         </CardHeader>
                         <CardContent>
                             <button 
-                                onClick={() => handleViewAttendance(classItem._id)} 
+                                onClick={() => handleViewAttendance(classItem.classCode)} 
                                 className="text-blue-500 hover:underline"
                             >
                                 View Attendance

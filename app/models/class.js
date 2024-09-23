@@ -9,15 +9,6 @@ const ClassSchema = new mongoose.Schema({
         type: String, 
         required: true 
     },
-    // teacher: { 
-    //     type: mongoose.Schema.Types.ObjectId, 
-    //     ref: 'User', 
-    //     required: true 
-    // },
-    // students: [{ 
-    //     type: mongoose.Schema.Types.ObjectId, 
-    //     ref: 'User' 
-    // }],
     teacherID: {
         type: String,
         required: true
@@ -25,7 +16,11 @@ const ClassSchema = new mongoose.Schema({
     studentIDs: {
         type: [String],
         default: []
-    }
+    },
+    dates: {
+        type: [Date], 
+        required: true 
+    },
 });
 
 export default mongoose.models.Class || mongoose.model('Class', ClassSchema);

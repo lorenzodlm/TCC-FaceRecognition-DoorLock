@@ -1,6 +1,6 @@
 'use client';
+
 import Link from "next/link";
-import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
 
 import StudentAttendancePage from "../../../components/demo/student/attendance";
@@ -15,18 +15,22 @@ import {
 } from "../../../components/ui/breadcrumb";
 
 export default function AttendancePage() {
-    const router = useRouter();
-    const { classId, studentId } = router.query; 
-
-    // Handle loading state
+    const [classId, setClassId] = useState<string | null>(null);
+    const [studentId, setStudentId] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // Only proceed if classId and studentId are available
-        if (classId && studentId) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const classIdFromUrl = urlParams.get('classId');
+        const studentIdFromUrl = urlParams.get('studentId');
+
+        setClassId(classIdFromUrl);
+        setStudentId(studentIdFromUrl);
+
+        if (classIdFromUrl && studentIdFromUrl) {
             setIsLoading(false);
         }
-    }, [classId, studentId]);
+    }, []); 
 
     return (
         <ContentLayout title="Attendance">
@@ -55,8 +59,9 @@ export default function AttendancePage() {
                     </BreadcrumbItem>
                 </BreadcrumbList>
             </Breadcrumb>
+
             {isLoading ? (
-                <div>Loading...</div> // Show a loading state while waiting for classId and studentId
+                <div>Loading...</div> // Show loading state while waiting for classId and studentId
             ) : (
                 <StudentAttendancePage classId={classId} studentId={studentId} />
             )}

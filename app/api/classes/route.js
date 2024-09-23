@@ -1,29 +1,23 @@
-import { dbConnect } from '/app/lib/db';
 import Classes from '/app/models/class'; 
 
-// API handler for fetching classes
 export async function GET(req) {
     try {
-        // Connect to the database
-        // await dbConnect(); 
 
-        // Extract query parameters from the request URL
         const { searchParams } = new URL(req.url);
-        const teacherId = searchParams.get('teacherId');
-        const classCode = searchParams.get('code');
-        const studentID = searchParams.get('studentId'); // New parameter
+        const teacherID = searchParams.get('teacherId');
+        const classCode = searchParams.get('classCode'); 
+        const studentID = searchParams.get('studentId'); 
 
         let classes;
 
-        // Fetch classes by teacherId, studentId, classCode, or fetch all if no query params
-        if (teacherId) {
-            classes = await Classes.find({ teacherId });
+        if (teacherID) {
+            classes = await Classes.find({ teacherID });
         } else if (classCode) {
-            classes = await Classes.find({ name: { $regex: classCode, $options: 'i' } }); 
+            classes = await Classes.find({ classCode: classCode }); 
         } else if (studentID) {
             classes = await Classes.find({ studentIDs: studentID }); 
         } else {
-            classes = await Classes.find({});
+            classes = await Classes.find({}); 
         }
 
         return new Response(JSON.stringify(classes), {
@@ -41,11 +35,11 @@ export async function GET(req) {
     }
 }
 
-// API handler for creating a class
+
 export async function POST(req) {
     try {
         const body = await req.json();
-        const newClass = await Classes.create(body);
+        const newClass = await Classes.create(body); 
         return new Response(JSON.stringify(newClass), { status: 201 });
     } catch (error) {
         return new Response(JSON.stringify({ message: 'Error creating class', error }), { status: 500 });

@@ -3,10 +3,10 @@ import Attendance from "/app/models/attendance";
 export async function GET(req) {
     try {
         const { searchParams } = new URL(req.url);
-        const classId = searchParams.get('classId'); 
-        const studentId = searchParams.get('studentId'); 
+        const classID = searchParams.get('classId'); 
+        const UserID = searchParams.get('studentId'); 
 
-        if (!classId || !studentId) {
+        if (!classID || !UserID) {
             return new Response(
                 JSON.stringify({ error: "classId and studentId are required" }),
                 { status: 400 }
@@ -14,8 +14,8 @@ export async function GET(req) {
         }
 
         const attendanceData = await Attendance.find({
-            classId: classId,
-            studentID: studentId, 
+            classID: classID, 
+            UserID: UserID,    
         });
 
         console.log("Attendance Data:", attendanceData);

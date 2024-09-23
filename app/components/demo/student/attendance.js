@@ -1,42 +1,66 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { useRouter } from 'next/router';
 import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/card";
 
 export default function StudentAttendancePage({ classId, studentId }) {
-    const [attendance, setAttendance] = useState([]);
+    const [classDates, setClassDates] = useState([]); // Holds class dates
+    const [studentAttendance, setStudentAttendance] = useState([]); // Holds student's attendance
 
     useEffect(() => {
         if (!classId || !studentId) return;
 
-        const fetchAttendance = async () => {
+        const fetchAttendanceData = async () => {
             try {
-                const res = await fetch(`/api/attendance?classId=${classId}&studentId=${studentId}`);
-                const data = await res.json();
-                setAttendance(data);
+                // Fetch the class data to get the class dates
+                const classRes = await fetch(`/api/classes?classId=${classId}`);
+                const classData = await classRes.json();
+                if (classData && classData.length > 0) {
+                    setClassDates(classData[0].dates || []); // Set the class dates
+                }
+
+                // Fetch the attendance data to get the student's attendance
+                const attendanceRes = await fetch(`/api/attendance?classId=${classId}&studentId=${studentId}`);
+                const attendanceData = await attendanceRes.json();
+                if (attendanceData && attendanceData.length > 0) {
+                    setStudentAttendance(attendanceData[0].attendance || []); // Set the student's attendance dates
+                }
             } catch (error) {
-                console.error("Error fetching attendance:", error);
+                console.error("Error fetching attendance data:", error);
             }
         };
 
-        fetchAttendance();
+        fetchAttendanceData();
     }, [classId, studentId]);
+
+    // Helper function to check if a date is in the student's attendance
+    const isPresent = (date) => {
+        return studentAttendance.some((attDate) => new Date(attDate).toLocaleDateString() === new Date(date).toLocaleDateString());
+    };
 
     return (
         <div className="p-6">
             <h1 className="text-2xl font-bold mb-4">Attendance for Class ID: {classId}</h1>
-            <div>
-                {attendance.map((record) => (
-                    <Card key={record.date} className="shadow-md mb-4">
-                        <CardHeader>
-                            <CardTitle>{record.date}</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p>{record.status}</p>
-                        </CardContent>
-                    </Card>
-                ))}
+            <div className="flex flex-wrap gap-4">
+                {classDates.length === 0 ? (
+                    <p>No class dates found.</p>
+                ) : (
+                    classDates.map((classDate, index) => (
+                        <Card 
+                            key={index} 
+                            className="shadow-md w-48 h-32 flex flex-col justify-between" // Fixed width and height
+                        >
+                            <CardHeader>
+                                <CardTitle>{new Date(classDate).toLocaleDateString()}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className={isPresent(classDate) ? 'font-bold text-green-500' : 'text-red-500'}>
+                                    {isPresent(classDate) ? "Present" : "Absent"}
+                                </p>
+                            </CardContent>
+                        </Card>
+                    ))
+                )}
             </div>
         </div>
     );
