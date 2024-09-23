@@ -53,7 +53,6 @@ export default function TeacherDashboard() {
                         <p>{user.id}</p>
                     </CardContent>
                 </Card>
-                {/* Add more cards for additional user information as needed */}
             </div>
         </div>
     );
