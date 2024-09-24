@@ -96,7 +96,7 @@ const teacherMenuList: Group[] = [
         submenus: []
       },
       {
-        href: "/classes",
+        href: "/teacherClasses",
         label: "My Classes",
         active: false,
         icon: SquarePen,
@@ -138,18 +138,18 @@ const studentMenuList: Group[] = [
       }
     ]
   },
-  // {
-  //   groupLabel: "Settings",
-  //   menus: [
-  //     {
-  //       href: "/account",
-  //       label: "Account",
-  //       active: false,
-  //       icon: Settings,
-  //       submenus: []
-  //     }
-  //   ]
-  // }
+  {
+    groupLabel: "Settings",
+    menus: [
+      {
+        href: "/account",
+        label: "Account",
+        active: false,
+        icon: Settings,
+        submenus: []
+      }
+    ]
+  }
 ];
 
 const noUserMenuList: Group[] = [

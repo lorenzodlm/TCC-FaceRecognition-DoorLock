@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/card";
 
 export default function StudentAttendancePage({ classId, studentId }) {
-    const [classDates, setClassDates] = useState([]); // Holds class dates
-    const [studentAttendance, setStudentAttendance] = useState([]); // Holds student's attendance
+    const [classDates, setClassDates] = useState([]); 
+    const [studentAttendance, setStudentAttendance] = useState([]); 
 
     useEffect(() => {
         if (!classId || !studentId) return;
@@ -16,14 +16,14 @@ export default function StudentAttendancePage({ classId, studentId }) {
                 const classRes = await fetch(`/api/classes?classId=${classId}`);
                 const classData = await classRes.json();
                 if (classData && classData.length > 0) {
-                    setClassDates(classData[0].dates || []); // Set the class dates
+                    setClassDates(classData[0].dates || []);
                 }
 
                 // Fetch the attendance data to get the student's attendance
                 const attendanceRes = await fetch(`/api/attendance?classId=${classId}&studentId=${studentId}`);
                 const attendanceData = await attendanceRes.json();
                 if (attendanceData && attendanceData.length > 0) {
-                    setStudentAttendance(attendanceData[0].attendance || []); // Set the student's attendance dates
+                    setStudentAttendance(attendanceData[0].attendance || []); 
                 }
             } catch (error) {
                 console.error("Error fetching attendance data:", error);
@@ -48,7 +48,7 @@ export default function StudentAttendancePage({ classId, studentId }) {
                     classDates.map((classDate, index) => (
                         <Card 
                             key={index} 
-                            className="shadow-md w-48 h-32 flex flex-col justify-between" // Fixed width and height
+                            className="shadow-md w-48 h-32 flex flex-col justify-between" 
                         >
                             <CardHeader>
                                 <CardTitle>{new Date(classDate).toLocaleDateString()}</CardTitle>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import StudentAttendancePage from "../../../components/demo/student/attendance";
+import TeacherAttendancePage from "../../../components/demo/teacher/attendance";
 import { ContentLayout } from "../../../components/admin-panel/content-layout";
 import {
     Breadcrumb,
@@ -16,18 +16,15 @@ import {
 
 export default function AttendancePage() {
     const [classId, setClassId] = useState<string | null>(null);
-    const [studentId, setStudentId] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const classIdFromUrl = urlParams.get('classId');
-        const studentIdFromUrl = urlParams.get('studentId');
 
         setClassId(classIdFromUrl);
-        setStudentId(studentIdFromUrl);
 
-        if (classIdFromUrl && studentIdFromUrl) {
+        if (classIdFromUrl) {
             setIsLoading(false);
         }
     }, []); 
@@ -50,7 +47,7 @@ export default function AttendancePage() {
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>
                         <BreadcrumbLink asChild>
-                            <Link href="/studentClasses">Classes</Link>
+                            <Link href="/teacherClasses">Classes</Link>
                         </BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
@@ -61,9 +58,9 @@ export default function AttendancePage() {
             </Breadcrumb>
 
             {isLoading ? (
-                <div>Loading...</div> 
+                <div>Loading...</div> // Show loading state while waiting for classId and studentId
             ) : (
-                <StudentAttendancePage classId={classId} studentId={studentId} />
+                <TeacherAttendancePage classId={classId}/>
             )}
         </ContentLayout>
     );

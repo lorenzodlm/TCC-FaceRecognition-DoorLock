@@ -5,10 +5,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/ca
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import { Separator } from "../../components/ui/separator";
+import { Button } from "../../components/ui/button";
 
 export default function Account() {
     const [user, setUser] = useState(null);
-    const userId = localStorage.getItem('_id'); 
+    const [currentPassword, setCurrentPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [passwordChangeSuccess, setPasswordChangeSuccess] = useState(false);
+    const [error, setError] = useState("");
+
+    const userId = localStorage.getItem('_id');
     console.log("User _id:", userId);
 
     useEffect(() => {
@@ -27,6 +33,37 @@ export default function Account() {
         }
     }, [userId]);
 
+    const handlePasswordChange = async (e) => {
+        e.preventDefault();
+        setPasswordChangeSuccess(false);
+        setError("");
+
+        try {
+            const res = await fetch(`/api/auth/change-password`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userId,
+                    currentPassword,
+                    newPassword,
+                }),
+            });
+
+            const data = await res.json();
+            if (res.ok) {
+                setPasswordChangeSuccess(true);
+                setCurrentPassword("");
+                setNewPassword("");
+            } else {
+                setError(data.error || "Password change failed");
+            }
+        } catch (error) {
+            setError("An error occurred. Please try again.");
+        }
+    };
+
     if (!user) {
         return <div>Loading...</div>;
     }
@@ -43,13 +80,11 @@ export default function Account() {
                     <Input id="id" value={user.id} readOnly className="mt-1 w-full" />
                 </div>
                 <Separator className="w-full my-4" />
-                <Separator className="w-full my-4" />
                 {/* Name */}
                 <div className="w-full">
                     <Label htmlFor="name" className="text-sm font-medium">Name</Label>
                     <Input id="name" value={user.name} readOnly className="mt-1 w-full" />
                 </div>
-                <Separator className="w-full my-4" />
                 <Separator className="w-full my-4" />
                 {/* Email */}
                 <div className="w-full">
@@ -57,12 +92,36 @@ export default function Account() {
                     <Input id="email" value={user.email} readOnly className="mt-1 w-full" />
                 </div>
                 <Separator className="w-full my-4" />
-                <Separator className="w-full my-4" />
-                {/* Password */}
-                <div className="w-full">
-                    <Label htmlFor="password" className="text-sm font-medium">Password</Label>
-                    <Input id="password" value={user.password} readOnly type="password" className="mt-1 w-full" />
-                </div>
+
+                {/* Password Change Form */}
+                <form className="w-full" onSubmit={handlePasswordChange}>
+                    <div className="w-full">
+                        <Label htmlFor="currentPassword" className="text-sm font-medium">Current Password</Label>
+                        <Input
+                            id="currentPassword"
+                            type="text" 
+                            value={currentPassword} 
+                            onChange={(e) => setCurrentPassword(e.target.value)} 
+                            className="mt-1 w-full"
+                        />
+                    </div>
+                    <Separator className="w-full my-4" />
+                    <div className="w-full">
+                        <Label htmlFor="newPassword" className="text-sm font-medium">New Password</Label>
+                        <Input
+                            id="newPassword"
+                            type="text" 
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                            className="mt-1 w-full"
+                        />
+                    </div>
+                    <Separator className="w-full my-4" />
+                    <Button type="submit" className="w-full">Change Password</Button>
+                    {passwordChangeSuccess && <p className="text-green-500 mt-2">Password changed successfully!</p>}
+                    {error && <p className="text-red-500 mt-2">{error}</p>}
+                </form>
+
             </CardContent>
         </Card>
     );
