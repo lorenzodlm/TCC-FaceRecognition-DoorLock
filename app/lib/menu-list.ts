@@ -55,18 +55,34 @@ const adminMenuList: Group[] = [
             active: false,
           },
           {
-            href: "/users/attendance",
-            label: "Attendance",
+            href: "/users/add",
+            label: "Add User",
             active: false,
           },
+          // {
+          //   href: "/users/attendance",
+          //   label: "Attendance",
+          //   active: false,
+          // },
         ]
       },
       {
         href: "/users/classes",
-        label: "Courses",
+        label: "Classes",
         active: false,
         icon: Bookmark,
-        submenus: []
+        submenus: [
+          {
+            href: "/users/classes/",
+            label: "Classes",
+            active: false,
+          },
+          {
+            href: "/users/classes/add",
+            label: "Add Class",
+            active: false,
+          },
+        ]
       },
     ]
   },
@@ -175,7 +191,7 @@ export function getMenuList(pathname: string, role: string): Group[] {
       menuList = teacherMenuList;
       break;
     default:
-      menuList = noUserMenuList; // Return an empty list if no role matches
+      menuList = noUserMenuList; // Not signed in
   };
 
   menuList.forEach(group => {

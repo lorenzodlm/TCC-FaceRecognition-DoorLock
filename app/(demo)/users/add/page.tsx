@@ -10,9 +10,9 @@ import {
     BreadcrumbSeparator
 } from "../../../components/ui/breadcrumb";
 
-import AttendanceTable from "../../../components/demo/attendanceTable";
+import AddUser from "../../../components/demo/admin/addUser"
 
-export default function AttendancePage() {
+export default function AddUsersPage() {
     return (
         <ContentLayout title="Attendance">
         <Breadcrumb>
@@ -36,11 +36,11 @@ export default function AttendancePage() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-                <BreadcrumbPage>Attendance</BreadcrumbPage>
+                <BreadcrumbPage>Add User</BreadcrumbPage>
             </BreadcrumbItem>
             </BreadcrumbList>
         </Breadcrumb>
-        <AttendanceTable />
+        <AddUser />
     </ContentLayout>
     );
 }
