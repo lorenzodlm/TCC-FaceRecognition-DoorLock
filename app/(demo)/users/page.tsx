@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { ContentLayout } from "../../components/admin-panel/content-layout";
+import { ContentLayout } from "@/app/components/admin-panel/content-layout";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,9 +8,9 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator
-} from "../../components/ui/breadcrumb";
+} from "@/app/components/ui/breadcrumb";
 
-import UserTable from "../../components/demo/userTable";
+import UserTable from "@/app/components/demo/userTable";
 
 export default function UsersPage() {
   return (

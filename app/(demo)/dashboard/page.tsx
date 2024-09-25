@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { ContentLayout } from "../../components/admin-panel/content-layout";
+import { ContentLayout } from "@/app/components/admin-panel/content-layout";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,12 +10,12 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator
-} from "../../components/ui/breadcrumb";
+} from "@/app/components/ui/breadcrumb";
 
-import AdminDashboard from "../../components/demo/dashboard/adminDashboard";
-import StudentDashboard from "../../components/demo/dashboard/studentDashboard";
-import TeacherDashboard from "../../components/demo/dashboard/teacherDashboard";
-import Unauthorised from "../../components/demo/dashboard/unauthorised";
+import AdminDashboard from "@/app/components/demo/dashboard/adminDashboard";
+import StudentDashboard from "@/app/components/demo/dashboard/studentDashboard";
+import TeacherDashboard from "@/app/components/demo/dashboard/teacherDashboard";
+import Unauthorised from "@/app/components/demo/dashboard/unauthorised";
 
 export default function DashboardPage() {
 

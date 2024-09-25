@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-import TeacherClassesPage from "../../components/demo/teacher/classes";
-import { ContentLayout } from "../../components/admin-panel/content-layout";
+import TeacherClassesPage from "@/app/components/demo/teacher/classes";
+import { ContentLayout } from "@/app/components/admin-panel/content-layout";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -9,7 +9,7 @@ import {
     BreadcrumbList,
     BreadcrumbPage,
     BreadcrumbSeparator
-} from "../../components/ui/breadcrumb";
+} from "@/app/components/ui/breadcrumb";
 
 export default function teacherClassesPage() {
     return (

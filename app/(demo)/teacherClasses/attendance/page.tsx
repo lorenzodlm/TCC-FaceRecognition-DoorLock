@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import TeacherAttendancePage from "../../../components/demo/teacher/attendance";
-import { ContentLayout } from "../../../components/admin-panel/content-layout";
+import TeacherAttendancePage from "@/app/components/demo/teacher/attendance";
+import { ContentLayout } from "@/app/components/admin-panel/content-layout";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -12,7 +12,7 @@ import {
     BreadcrumbList,
     BreadcrumbPage,
     BreadcrumbSeparator
-} from "../../../components/ui/breadcrumb";
+} from "@/app/components/ui/breadcrumb";
 
 export default function AttendancePage() {
     const [classId, setClassId] = useState<string | null>(null);

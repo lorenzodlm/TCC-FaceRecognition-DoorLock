@@ -1,14 +1,12 @@
 'use client';
 
 import Link from "next/link";
-import { PanelsTopLeft } from "lucide-react";
-
-import { cn } from "../../lib/utils";
-import { useStore } from "../../hooks/use-store";
-import { Button } from "../../components/ui/button";
-import { Menu } from "../../components/admin-panel/menu";
-import { useSidebarToggle } from "../../hooks/use-sidebar-toggle";
-import { SidebarToggle } from "../../components/admin-panel/sidebar-toggle";
+import { cn } from "@/app/lib/utils";
+import { useStore } from "@/app/hooks/use-store";
+import { Button } from "@/app/components/ui/button";
+import { Menu } from "@/app/components/admin-panel/menu";
+import { useSidebarToggle } from "@/app/hooks/use-sidebar-toggle";
+import { SidebarToggle } from "@/app/components/admin-panel/sidebar-toggle";
 
 import { useEffect, useState } from 'react';
 
@@ -25,7 +23,7 @@ export function Sidebar() {
     <aside
       className={cn(
         "fixed top-0 left-0 z-20 h-screen -translate-x-full lg:translate-x-0 transition-[width] ease-in-out duration-300",
-        sidebar?.isOpen === false ? "w-[90px]" : "w-72"
+        sidebar?.isOpen ? "w-72" : "w-[90px]"
       )}
     >
       <SidebarToggle isOpen={sidebar?.isOpen} setIsOpen={sidebar?.setIsOpen} />

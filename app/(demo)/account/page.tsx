@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-import Account from "../../components/demo/account";
-import { ContentLayout } from "../../components/admin-panel/content-layout";
+import Account from "@/app/components/demo/account";
+import { ContentLayout } from "@/app/components/admin-panel/content-layout";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,7 +9,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator
-} from "../../components/ui/breadcrumb";
+} from "@/app/components/ui/breadcrumb";
 
 export default function AccountPage() {
   return (

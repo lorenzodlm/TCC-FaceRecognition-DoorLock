@@ -4,17 +4,17 @@ import Link from "next/link";
 import { Ellipsis, LogOut, LogIn } from "lucide-react";
 import { usePathname } from "next/navigation";
 
-import { cn } from "../../lib/utils";
-import { getMenuList } from "../../lib/menu-list";
-import { Button } from "../../components/ui/button";
-import { ScrollArea } from "../../components/ui/scroll-area";
-import { CollapseMenuButton } from "../../components/admin-panel/collapse-menu-button";
+import { cn } from "@/app/lib/utils";
+import { getMenuList } from "@/app/lib/menu-list";
+import { Button } from "@/app/components/ui/button";
+import { ScrollArea } from "@/app/components/ui/scroll-area";
+import { CollapseMenuButton } from "@/app/components/admin-panel/collapse-menu-button";
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
   TooltipProvider
-} from "../../components/ui/tooltip";
+} from "@/app/components/ui/tooltip";
 
 import { useEffect, useState } from "react";
 
