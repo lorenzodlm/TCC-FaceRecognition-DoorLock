@@ -2,6 +2,11 @@
 
 **Revolutionizing the way you check attendance**
 
+## Team Members
+- **Lorenzo Martins Dalmeida**: 6420015
+- **Archit Changchreonkul**: 6420101
+- **Kritsada Kruapat**: 6420063
+
 ## Overview
 
 AfterFall is a modern, real-time attendance management system designed to streamline attendance tracking for educational institutions. The platform provides role-based dashboards for administrators, teachers, and students, making attendance tracking more efficient and transparent.
@@ -20,37 +25,12 @@ AfterFall is a modern, real-time attendance management system designed to stream
 
 ---
 
-## Table of Contents
-
-1. [Tech Stack](#tech-stack)
-2. [Installation](#installation)
-3. [Project Structure](#project-structure)
-4. [Usage](#usage)
-5. [API Endpoints](#api-endpoints)
-6. [Features by User Role](#features-by-user-role)
-7. [Development Roadmap](#development-roadmap)
-8. [Contributing](#contributing)
-9. [License](#license)
-
----
-
 ## Tech Stack
 
 - **Framework**: [Next.js](https://nextjs.org/) 14
 - **UI Library**: [Shadcn](https://shadcn.dev/) and [Tailwind CSS](https://tailwindcss.com/)
 - **Database**: [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-- **Authentication**: [NextAuth.js](https://next-auth.js.org/) with GitHub provider
 - **State Management**: React hooks and [Tanstack Table](https://tanstack.com/table)
-- **Package Manager**: npm
+- **Package Manager**: pnpm
 - **Deployment**: Vercel
 
----
-
-## Installation
-
-Follow the steps below to set up AfterFall on your local machine:
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/afterfall.git
-   cd afterfall```
