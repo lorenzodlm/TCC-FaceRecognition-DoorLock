@@ -1,17 +1,16 @@
-// import { dbConnect } from '@/lib/instrumentation';
 import User from '/app/models/user';
 
 // API handler for fetching users
 export async function GET(req) {
     try {
-        // Connect to the database
-        // await dbConnect();
+
 
         // Extract query parameters from the request URL
         const { searchParams } = new URL(req.url);
         const _id = searchParams.get('id');
         const role = searchParams.get('role');
         const name = searchParams.get('name');
+        const userID = searchParams.get('userID')
 
         let users;
         
@@ -27,10 +26,12 @@ export async function GET(req) {
         }
 
         // Fetch users by role or name, or fetch all if no query params
-        if (role) {
+        if (userID) {
+            users = await User.find({ id: userID }); // Search by userID
+        } else if (role) {
             users = await User.find({ role });
         } else if (name) {
-            users = await User.find({ name: { $regex: name, $options: 'i' } }); 
+            users = await User.find({ name: { $regex: name, $options: 'i' } });
         } else {
             users = await User.find({});
         }

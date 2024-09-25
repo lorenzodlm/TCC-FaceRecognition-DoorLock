@@ -1,22 +1,26 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { Card, CardContent } from "../ui/card";
+import { Card, CardContent } from "@/app/components/ui/card";
 import {
     getCoreRowModel,
     useReactTable,
     flexRender
 } from "@tanstack/react-table";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/app/components/ui/select";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/app/components/ui/table";
+import Link from 'next/link';
+
 
 export default function UserTable() {
     const [users, setUsers] = useState([]);
+    const [selectedRole, setSelectedRole] = useState("all"); // Default to "all" users
 
-    // Fetch users from the API
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const res = await fetch("/api/users");
+                const query = selectedRole === "all" ? "" : `?role=${selectedRole}`;
+                const res = await fetch(`/api/users${query}`);
                 const data = await res.json();
                 setUsers(data);
             } catch (error) {
@@ -24,9 +28,11 @@ export default function UserTable() {
             }
         };
         fetchUsers();
-    }, []);
+    }, [selectedRole]);
+
 
     const columns = [
+        { accessorKey: "id", header: "ID" },
         { accessorKey: "name", header: "Name" },
         { accessorKey: "email", header: "Email" },
         { accessorKey: "password", header: "Password" },
@@ -48,10 +54,25 @@ export default function UserTable() {
     });
 
     return (
-        
-        <Card className="rounded-lg border-none mt-6">
-            <CardContent className="p-6">
-                <div className="rounded-md border">
+        <div>
+            {/* Role Filter Dropdown */}
+            <div className="mb-4">
+                <Select onValueChange={setSelectedRole} value={selectedRole}>
+                    <SelectTrigger>
+                        <SelectValue placeholder="Filter by Role" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="all">All Roles</SelectItem>
+                        <SelectItem value="student">Student</SelectItem>
+                        <SelectItem value="teacher">Teacher</SelectItem>
+                        <SelectItem value="admin">Admin</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
+
+            {/* Table */}
+            <Card>
+                <CardContent>
                     <Table>
                         <TableHeader>
                             {table.getHeaderGroups().map(headerGroup => (
@@ -72,12 +93,17 @@ export default function UserTable() {
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
+                                    <TableCell>
+                                        <Link href={`/users/${row.original.id}`} className="text-blue-500 hover:underline">
+                                            View Details
+                                        </Link>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
-                </div>
-            </CardContent>
-        </Card>
+                </CardContent>
+            </Card>
+        </div>
     );
-};
+}
