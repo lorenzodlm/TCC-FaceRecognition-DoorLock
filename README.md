@@ -32,7 +32,7 @@ AfterFall is a modern, real-time attendance management system designed to stream
 - **Add User**
 ![Add User](./img/admin/addUser.png)
 - **All Classes**
-![All Classes](./img/admin/allClasses.png)
+![All Classes](./img/admin/classes.png)
 - **Add Class**
 ![Add Class](./img/admin/addClass.png)
 - **Account**
