@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from "react";
-import { Button } from "../../../components/ui/button";
-import { Input } from "../../../components/ui/input";
-import { Label } from "../../../components/ui/label";
-import { Separator } from "../../../components/ui/separator";
-import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/select";
-import { Alert, AlertDescription } from "../../../components/ui/alert";
+import { Button } from "@/app/components/ui/button";
+import { Input } from "@/app/components/ui/input";
+import { Label } from "@/app/components/ui/label";
+import { Separator } from "@/app/components/ui/separator";
+import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/app/components/ui/select";
+import { Alert, AlertDescription } from "@/app/components/ui/alert";
 
 export default function AddUser() {
     const [id, setId] = useState("");

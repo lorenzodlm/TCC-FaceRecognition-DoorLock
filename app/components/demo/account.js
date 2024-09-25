@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
-import { Label } from "../../components/ui/label";
-import { Input } from "../../components/ui/input";
-import { Separator } from "../../components/ui/separator";
-import { Button } from "../../components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/card";
+import { Label } from "@/app/components/ui/label";
+import { Input } from "@/app/components/ui/input";
+import { Separator } from "@/app/components/ui/separator";
+import { Button } from "@/app/components/ui/button";
 
 export default function Account() {
     const [user, setUser] = useState(null);

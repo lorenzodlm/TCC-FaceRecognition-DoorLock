@@ -1,7 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { ContentLayout } from "@/app/components/admin-panel/content-layout";
+import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/card";
+import { Label } from "@/app/components/ui/label";
+import { Input } from "@/app/components/ui/input";
+import { Button } from "@/app/components/ui/button";
 
 export default function SignInPage() {
     const [email, setEmail] = useState('');
@@ -38,34 +42,44 @@ export default function SignInPage() {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md">
-                <h1 className="text-2xl mb-6">Sign In</h1>
-                {error && <p className="text-red-500">{error}</p>}
-                <div className="mb-4">
-                    <label className="block mb-2">Email</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="w-full border rounded px-3 py-2"
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block mb-2">Password</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        className="w-full border rounded px-3 py-2"
-                    />
-                </div>
-                <button type="submit" className="bg-blue-500 text-white rounded px-4 py-2">
-                    Sign In
-                </button>
-            </form>
-        </div>
+        <ContentLayout title="Sign In">
+            <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+                <Card className="max-w-md w-full bg-white dark:bg-gray-800">
+                    <CardHeader>
+                        <CardTitle className="text-2xl text-gray-800 dark:text-gray-100">Sign In</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        {error && <p className="text-red-500">{error}</p>}
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div>
+                                <Label htmlFor="email" className="block mb-2 text-gray-700 dark:text-gray-300">Email</Label>
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                    className="border rounded px-3 py-2 text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-700"
+                                />
+                            </div>
+                            <div>
+                                <Label htmlFor="password" className="block mb-2 text-gray-700 dark:text-gray-300">Password</Label>
+                                <Input
+                                    id="password"
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                    className="border rounded px-3 py-2 text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-700"
+                                />
+                            </div>
+                            <Button type="submit" className="w-full bg-blue-500 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500">
+                                Sign In
+                            </Button>
+                        </form>
+                    </CardContent>
+                </Card>
+            </div>
+        </ContentLayout>
     );
 }

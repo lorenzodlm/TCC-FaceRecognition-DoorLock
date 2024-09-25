@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { Card, CardContent } from "../../components/ui/card";
+import { Card, CardContent } from "@/app/components/ui/card";
 import {
     getCoreRowModel,
     useReactTable,
     flexRender
 } from "@tanstack/react-table";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/app/components/ui/table";
 
 export default function AttendanceTable() {
     const [attendanceRecords, setAttendanceRecords] = useState([]);
