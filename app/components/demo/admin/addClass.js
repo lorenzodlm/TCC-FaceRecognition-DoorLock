@@ -8,6 +8,13 @@ import { Separator } from "@/app/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/app/components/ui/select";
 import { Alert, AlertDescription } from "@/app/components/ui/alert";
+import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/ui/popover";
+import { Calendar } from "@/app/components/ui/calendar";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { cn } from "@/app/lib/utils";
+import { format, isSameDay } from "date-fns"; 
+
+
 
 export default function AddClass() {
     const [className, setClassName] = useState("");
@@ -17,11 +24,14 @@ export default function AddClass() {
     const [dates, setDates] = useState([]);
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
+    
 
     const handleAddClass = async (e) => {
         e.preventDefault();
         setSuccess("");
         setError("");
+
+        const formattedDates = dates.map((date) => new Date(date).toISOString());
 
         try {
             const res = await fetch(`/api/classes/add`, {
@@ -29,7 +39,7 @@ export default function AddClass() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ className, classCode, teacherID, studentIDs, dates }),
+                body: JSON.stringify({ className, classCode, teacherID, studentIDs, dates: formattedDates }),
             });
 
             const data = await res.json();
@@ -47,6 +57,22 @@ export default function AddClass() {
             setError("An error occurred. Please try again.");
         }
     };
+
+    const handleDateSelect = (date) => {
+        const selectedDate = new Date(date);
+        if (isNaN(selectedDate.getTime())) {
+            return; 
+        }
+    
+        const dateExists = dates.some(d => d.getTime() === selectedDate.getTime());
+    
+        if (dateExists) {
+            setDates(dates.filter(d => d.getTime() !== selectedDate.getTime()));
+        } else {
+            setDates([...dates, selectedDate]);
+        }
+    };
+    
 
     return (
         <Card className="w-full max-w-md mx-auto">
@@ -97,14 +123,37 @@ export default function AddClass() {
                     </div>
                     <Separator />
                     <div className="space-y-2">
-                        <Label htmlFor="dates">Class Dates</Label>
-                        <Input
-                            id="dates"
-                            type="text"
-                            value={dates.join(", ")}
-                            onChange={(e) => setDates(e.target.value.split(", ").map(date => new Date(date)))}
-                        />
-                        <p className="text-sm text-gray-500">Enter class dates separated by commas (YYYY-MM-DD format)</p>
+                        <Label>Class Dates</Label>
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    className={cn(
+                                        "w-full justify-start text-left font-normal",
+                                        !dates.length && "text-muted-foreground"
+                                    )}
+                                >
+                                    {dates.length
+                                        ? dates.map((date) => {
+                                            const parsedDate = new Date(date);
+                                            return isNaN(parsedDate.getTime()) 
+                                                ? "Invalid Date" 
+                                                : format(parsedDate, "PPP");
+                                        }).join(", ") 
+                                        : "Pick dates"}
+                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                                <Calendar
+                                    mode="multiple"
+                                    selected={dates}
+                                    onSelect={handleDateSelect}
+                                    initialFocus
+                                />
+                            </PopoverContent>
+                        </Popover>
+                        <p className="text-sm text-gray-500">Select date for the class</p>
                     </div>
                     <Separator />
                     <br />
