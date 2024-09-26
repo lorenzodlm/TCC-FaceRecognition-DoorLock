@@ -38,19 +38,9 @@ export default function StudentAttendancePage({ classId, studentId }) {
         return studentAttendance.some((attDate) => new Date(attDate).toLocaleDateString() === new Date(date).toLocaleDateString());
     };
 
-    // Calculate total absences
-    const totalClasses = classDates.length;
-    const totalAbsent = classDates.filter(date => !isPresent(date)).length;
-
     return (
         <div className="p-6">
             <h1 className="text-2xl font-bold mb-4">Attendance for Class ID: {classId}</h1>
-            <p className="text-lg font-bold text-red-500">
-                Total Absent: {`${totalAbsent}/${totalClasses}`} {/* Show in absent/total format */}
-            </p>
-            <br />
-
-
             <div className="flex flex-wrap gap-4">
                 {classDates.length === 0 ? (
                     <p>No class dates found.</p>
@@ -58,7 +48,7 @@ export default function StudentAttendancePage({ classId, studentId }) {
                     classDates.map((classDate, index) => (
                         <Card 
                             key={index} 
-                            className="shadow-md w-48 h-32 flex flex-col justify-between" // Ensuring same dimensions
+                            className="shadow-md w-48 h-32 flex flex-col justify-between" 
                         >
                             <CardHeader>
                                 <CardTitle>{new Date(classDate).toLocaleDateString()}</CardTitle>
@@ -74,4 +64,4 @@ export default function StudentAttendancePage({ classId, studentId }) {
             </div>
         </div>
     );
-}5
+}
