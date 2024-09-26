@@ -1,13 +1,15 @@
 'use client';
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/card";
 import { DataGrid } from '@mui/x-data-grid';
+
 
 export default function TeacherAttendancePage({ classId }) {
     const [classDates, setClassDates] = useState([]);
     const [studentAttendance, setStudentAttendance] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [filteredStudents, setFilteredStudents] = useState([]); 
+    const [searchTerm, setSearchTerm] = useState(''); // New state for search input
+    const [filteredStudents, setFilteredStudents] = useState([]); // State to store filtered students
 
     useEffect(() => {
         if (!classId) return;
@@ -41,13 +43,6 @@ export default function TeacherAttendancePage({ classId }) {
         return studentAttendance.attendance.some((attDate) => new Date(attDate).toLocaleDateString() === new Date(date).toLocaleDateString());
     };
 
-    // Helper function to calculate total absences
-    const getTotalAbsences = (student) => {
-        const totalClasses = classDates.length;
-        const absences = classDates.filter(date => !isPresent(student, date)).length;
-        return `${absences}/${totalClasses}`;
-    };
-
     // Handle search input and filter students by ID
     const handleSearch = (event) => {
         const searchValue = event.target.value;
@@ -64,55 +59,12 @@ export default function TeacherAttendancePage({ classId }) {
         }
     };
 
-    // Create dynamic columns for DataGrid
-    const columns = useMemo(() => {
-        const dateColumns = classDates.map((date, index) => ({
-            field: `date_${index}`,
-            headerName: new Date(date).toLocaleDateString(), // Display formatted date as header
-            width: 150,
-            renderCell: (params) => (
-                <span className={params.value ? 'text-green-500' : 'text-red-500'}>
-                    {params.value ? 'Present' : 'Absent'}
-                </span>
-            )
-        }));
-
-        return [
-            { field: 'UserID', headerName: 'Student ID', width: 150 }, 
-            { 
-                field: 'totalAbsent', 
-                headerName: 'Total Absent', 
-                width: 150, 
-                renderCell: (params) => (
-                    <span className="text-black-500 font-bold">
-                        {params.value}
-                    </span>
-                )
-            },
-            ...dateColumns 
-        ];
-    }, [classDates]);
-
-    const rows = useMemo(() => {
-        return filteredStudents.map((student, index) => {
-            const row = { id: index, UserID: student.UserID };
-
-            // Calculate the total absences for each student
-            row['totalAbsent'] = getTotalAbsences(student);
-
-            // Add presence or absence for each date
-            classDates.forEach((date, dateIndex) => {
-                row[`date_${dateIndex}`] = isPresent(student, date);
-            });
-
-            return row;
-        });
-    }, [filteredStudents, classDates]);
 
     return (
         <div className="p-6">
             <h1 className="text-2xl font-bold mb-4">Attendance for Class ID: {classId}</h1>
 
+            {/* Search bar to search for student ID */}
             <input
                 type="text"
                 placeholder="Search by Student ID"
@@ -121,14 +73,30 @@ export default function TeacherAttendancePage({ classId }) {
                 className="mb-4 p-2 border border-gray-300 rounded"
             />
 
-            <div style={{ height: 600, width: '100%' }}>
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5, 10, 20]}
-                    pagination
-                />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredStudents.length === 0 ? (
+                    <p>No attendance data available.</p>
+                ) : (
+                    filteredStudents.map((student, index) => (
+                        <Card key={index} className="shadow-md">
+                            <CardHeader>
+                                <CardTitle>ID: {student.UserID}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="flex flex-wrap gap-2">
+                                    {classDates.map((classDate, dateIndex) => (
+                                        <div key={dateIndex} className="w-24 text-center">
+                                            <p>{new Date(classDate).toLocaleDateString()}</p>
+                                            <p className={isPresent(student, classDate) ? 'text-green-500' : 'text-red-500'}>
+                                                {isPresent(student, classDate) ? "Present" : "Absent"}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </CardContent>
+                        </Card>
+                    ))
+                )}
             </div>
         </div>
     );
