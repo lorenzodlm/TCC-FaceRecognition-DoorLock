@@ -14,7 +14,7 @@
 AfterFall is a modern, real-time attendance management system designed to streamline attendance tracking for educational institutions. The platform provides role-based dashboards for administrators, teachers, and students, making attendance tracking more efficient and transparent.
 
 - **Framework**: [Next.js](https://nextjs.org/) 
-- **UI Library**: [Shadcn](https://shadcn.dev/) and [Tailwind CSS](https://tailwindcss.com/)
+- **UI Library**: [Shadcn](https://ui.shadcn.com/) and [Tailwind CSS](https://tailwindcss.com/)
 - **Database**: [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 - **State Management**: React hooks and [Tanstack Table](https://tanstack.com/table)
 - **Package Manager**: pnpm
