@@ -43,7 +43,7 @@ export default function SignInPage() {
 
     return (
         <ContentLayout title="Sign In">
-            <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+            <div className="flex items-center justify-center min-h-screen">
                 <Card className="max-w-md w-full bg-white dark:bg-gray-800">
                     <CardHeader>
                         <CardTitle className="text-2xl text-gray-800 dark:text-gray-100">Sign In</CardTitle>

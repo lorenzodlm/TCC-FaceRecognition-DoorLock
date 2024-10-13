@@ -10,7 +10,7 @@ import {
   BreadcrumbSeparator
 } from "@/app/components/ui/breadcrumb";
 
-import UserTable from "@/app/components/demo/userTable";
+import UserTable from "@/app/components/demo/admin/userTable";
 
 export default function UsersPage() {
   return (

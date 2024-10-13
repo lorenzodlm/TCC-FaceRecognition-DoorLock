@@ -1,7 +1,7 @@
 export default function UnauthorisedDashboard() {
     return (
-        <div>
-            <h1>You need to login to view this Page</h1>
+        <div className="p-6">
+            <h1 className="text-2xl font-bold mb-4">You need to Login to view this page!</h1>
         </div>
     );
 }

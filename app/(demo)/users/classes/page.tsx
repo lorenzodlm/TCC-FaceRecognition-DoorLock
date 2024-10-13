@@ -10,7 +10,7 @@ import {
     BreadcrumbSeparator
 } from "@/app/components/ui/breadcrumb";
 
-import ClassTable from "@/app/components/demo/classTable";
+import ClassTable from "@/app/components/demo/admin/classTable";
 
 export default function ClassesPage() {
     return (

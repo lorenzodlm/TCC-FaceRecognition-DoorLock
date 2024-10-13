@@ -27,7 +27,7 @@ export default function AdminDashboard() {
 
     return (
         <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Student Dashboard</h1>
+            <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
             <div className="flex flex-wrap gap-4">
                 <Card className="flex-1 min-w-[200px]">
                     <CardHeader>

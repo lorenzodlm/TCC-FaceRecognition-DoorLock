@@ -2,6 +2,9 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { DataGrid } from '@mui/x-data-grid';
+import { Button } from "@/app/components/ui/button";
+import { AiFillFileExcel } from 'react-icons/ai';
+import * as XLSX from 'xlsx';
 
 export default function TeacherAttendancePage({ classId }) {
     const [classDates, setClassDates] = useState([]);
@@ -109,17 +112,50 @@ export default function TeacherAttendancePage({ classId }) {
         });
     }, [filteredStudents, classDates]);
 
+    const exportToExcel = () => {
+        const excelData = rows.map((row) => {
+            const formattedRow = { ...row };
+    
+            classDates.forEach((date, index) => {
+                const key = `date_${index}`;
+                const formattedDate = new Date(date).toLocaleDateString(); 
+                formattedRow[formattedDate] = row[key] ? 'Present' : 'Absent'; 
+                delete formattedRow[key];
+            });
+    
+            return formattedRow;
+        });
+    
+        const worksheet = XLSX.utils.json_to_sheet(excelData);
+        const workbook = XLSX.utils.book_new();  
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Attendance");   
+        XLSX.writeFile(workbook, `attendance_${classId}.xlsx`);
+    };
+
     return (
         <div className="p-6">
             <h1 className="text-2xl font-bold mb-4">Attendance for Class ID: {classId}</h1>
 
-            <input
-                type="text"
-                placeholder="Search by Student ID"
-                value={searchTerm}
-                onChange={handleSearch}
-                className="mb-4 p-2 border border-gray-300 rounded"
-            />
+            
+            <div className="flex justify-between items-center mb-4">
+                {/* Search bar aligned to the left */}
+                <input
+                    type="text"
+                    placeholder="Search by Student ID"
+                    value={searchTerm}
+                    onChange={handleSearch}
+                    className="p-2 border border-gray-300 rounded"
+                />
+
+                {/* Export button aligned to the right */}
+                <Button 
+                    onClick={exportToExcel} 
+                    className="p-2 bg-white text-black border-gray-300 rounded flex items-center"
+                >
+                    <AiFillFileExcel className="mr-2" />
+                    Export to Excel
+                </Button>
+            </div>
 
             <div style={{ height: 600, width: '100%' }}>
                 <DataGrid
