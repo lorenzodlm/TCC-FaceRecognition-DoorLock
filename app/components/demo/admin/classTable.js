@@ -31,15 +31,15 @@ export default function ClassTable() {
         { accessorKey: "className", header: "Class Name" },
         { accessorKey: "classCode", header: "Class Code" },
         { accessorKey: "teacherID", header: "Teacher ID" },
-        // {
-        //     id: "actions",
-        //     header: "Actions",
-        //     cell: ({ row }) => (
-        //         <Link href={`/users/classes/${row.getValue("_id")}`} className="text-blue-500 underline">
-        //             View Details
-        //         </Link>
-        //     ),
-        // },
+        {
+            id: "actions",
+            header: "Actions",
+            cell: ({ row }) => (
+                <Link href={`/users/classes/${row.getValue("classCode")}`} className="text-black-500 hover:underline">
+                    View Details
+                </Link>
+            ),
+        },
     ];
 
     const table = useReactTable({

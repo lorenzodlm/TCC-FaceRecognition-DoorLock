@@ -94,7 +94,7 @@ export default function UserTable() {
                                         </TableCell>
                                     ))}
                                     <TableCell>
-                                        <Link href={`/users/${row.original.id}`} className="text-blue-500 hover:underline">
+                                        <Link href={`/users/${row.original.id}`} className="text-black-500 hover:underline">
                                             View Details
                                         </Link>
                                     </TableCell>
