@@ -2,8 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRightIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 
-import { Button } from "./components/ui/button";
-import { ModeToggle } from "./components/mode-toggle";
+import { Button } from "@/app/components/ui/button";
+import { ModeToggle } from "@/app/components/mode-toggle";
 
 export default function HomePage() {
   return (
@@ -49,11 +49,7 @@ export default function HomePage() {
                 </Link>
               </Button>
               <Button variant="outline" asChild>
-                <Link
-                  href="https://google.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <Link href="/info/about">
                   About Us
                 </Link>
               </Button>
