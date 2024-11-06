@@ -7,7 +7,7 @@
 - **Archit Changchreonkul**: 6420101
 - **Kritsada Kruapat**: 6420063
 
-*Please note this is only the website, our Real-Time Facial Recognition model is linked below*
+*Please note this is only the website, our Real-Time Facial Recognition model is linked here*
 **[Our Face Recognition Model](https://github.com/OwenYooYoo/webcam-antispoofing)**
 
 ## Overview
