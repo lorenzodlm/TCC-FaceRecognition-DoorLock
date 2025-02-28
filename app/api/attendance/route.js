@@ -3,12 +3,12 @@ import Attendance from "/app/models/attendance";
 export async function GET(req) {
     try {
         const { searchParams } = new URL(req.url);
-        const classID = searchParams.get('classId');
-        const UserID = searchParams.get('studentId'); // Optional student ID
+        const locationID = searchParams.get('locationID');
+        const UserID = searchParams.get('employeeID'); // Optional employee ID
 
-        if (!classID) {
+        if (!locationID) {
             return new Response(
-                JSON.stringify({ error: "classId is required" }),
+                JSON.stringify({ error: "locationID is required" }),
                 { status: 400 }
             );
         }
@@ -16,15 +16,15 @@ export async function GET(req) {
         let attendanceData;
 
         if (UserID) {
-            // Fetch attendance for the specific student in the class
+            // Fetch attendance for the specific employee in the location
             attendanceData = await Attendance.find({
-                classID: classID,
+                locationID: locationID,
                 UserID: UserID,
             });
         } else {
-            // Fetch attendance for all students in the class
+            // Fetch attendance for all employees in the location
             attendanceData = await Attendance.find({
-                classID: classID,
+                locationID: locationID,
             });
         }
 

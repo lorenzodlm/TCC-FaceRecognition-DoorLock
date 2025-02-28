@@ -13,7 +13,7 @@ export const metadata: Metadata = {
       ? `https://${process.env.VERCEL_URL}`
       : `http://localhost:${process.env.PORT || 3000}`
   ),
-  title: "AfterFall",
+  title: "TCC - AfterFall",
   description:
     "",
   alternates: {
@@ -21,14 +21,14 @@ export const metadata: Metadata = {
   },
   openGraph: {
     url: "/dashboard",
-    title: "AfterFall",
+    title: "TCC - AfterFall",
     description:
       "",
     type: "website"
   },
   twitter: {
     card: "summary_large_image",
-    title: "AfterFall",
+    title: "TCC - AfterFall",
     description:
       ""
   }

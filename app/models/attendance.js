@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 
 const AttendanceSchema = new mongoose.Schema({
-    UserID: { 
+    userID: { 
         type: String, 
         required: true 
     },
-    classID: { 
+    locationID: { 
         type: String, 
         required: true 
     },

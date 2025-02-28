@@ -5,9 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/ca
 export default function UserDetails({ params }) {
     const { id } = params;  
     const [user, setUser] = useState(null);
-    const [classes, setClasses] = useState([]);
-    const [availableClasses, setAvailableClasses] = useState([]); // State for all available classes
-    const [selectedClassId, setSelectedClassId] = useState(""); // State for selected class
+    const [Locations, setLocations] = useState([]);
+    const [availableLocations, setAvailableLocations] = useState([]); // State for all available Locations
+    const [selectedLocationID, setSelectedLocationID] = useState(""); // State for selected location
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -15,103 +15,124 @@ export default function UserDetails({ params }) {
                 try {
                     const res = await fetch(`/api/users?userID=${id}`);
                     const data = await res.json();
-                    
+        
                     if (Array.isArray(data) && data.length > 0) {
                         const userData = data[0];
                         setUser(userData);
-                        setClasses(userData.classIds);
+                        
+                        if (userData.locationIDs && userData.locationIDs.length > 0) {
+                            const locationResponses = await Promise.all(
+                                userData.locationIDs.map(locationID =>
+                                    fetch(`/api/locations/${locationID}`).then(res => res.json())
+                                )
+                            );
+        
+                            const locationNames = locationResponses.map(location => location.locationName);
+                            setLocations(locationNames);
+                        } else {
+                            setLocations([]);
+                        }
                     } else {
                         console.error("User not found");
+                        setLocations([]);
                     }
                 } catch (error) {
                     console.error("Error fetching user:", error);
+                    setLocations([]);
                 }
             }
         };
+        
 
-        const fetchClasses = async () => {
+        const fetchLocations = async () => {
             try {
-                const res = await fetch('/api/classes');
+                const res = await fetch('/api/locations');
                 const data = await res.json();
-                setAvailableClasses(data); // Assuming data is an array of classes
+                setAvailableLocations(data); // Assuming data is an array of locations
             } catch (error) {
-                console.error("Error fetching classes:", error);
+                console.error("Error fetching locations:", error);
             }
         };
 
         fetchUser();
-        fetchClasses();
+        fetchLocations();
     }, [id]);
 
-    const addClass = async () => {
-        if (selectedClassId) {
-            const selectedClass = availableClasses.find(classItem => classItem._id === selectedClassId);
-            if (!selectedClass) {
-                console.error("Selected class not found");
+    const addLocation = async () => {
+        if (selectedLocationID) {
+            const selectedLocation = availableLocations.find(locationItem => locationItem._id === selectedLocationID);
+            if (!selectedLocation) {
+                console.error("Selected location not found");
                 return;
             }
 
-            const { classCode } = selectedClass; 
-            if (!classCode) {
-                console.error("classCode is undefined for the selected class");
+            const { locationID } = selectedLocation; 
+            if (!locationID) {
+                console.error("locationID is undefined for the selected location");
                 return;
             }
             
             try {
-                const res = await fetch(`/api/users/${id}/classes`, {
+                const res = await fetch(`/api/users/${id}/locations`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ classCode: selectedClass.classCode }), 
+                    body: JSON.stringify({ locationID: selectedLocation.locationID }), 
                 });
     
                 if (res.ok) {
-                    setClasses((prevClasses) => [...prevClasses, selectedClass.classCode]); 
-                    setSelectedClassId(""); 
-                    await addStudentToClass(selectedClass.classCode);
+                    setLocations((prevLocations) => [...prevLocations, selectedLocation.locationName]); 
+                    setSelectedLocationID(""); 
+                    await addEmployeeToLocation(selectedLocation.locationID);
                 } else {
-                    console.error("Failed to add class");
+                    console.error("Failed to add location");
                 }
             } catch (error) {
-                console.error("Error adding class:", error);
+                console.error("Error adding location:", error);
             }
         }
     };
     
-    const addStudentToClass = async (classCode) => {
-        console.log("Class Code:",classCode);
+    const addEmployeeToLocation = async (locationID) => {
+        console.log("*addEmployeeToLocation* LocationID:",locationID);
         try {
-            const res = await fetch(`/api/classes/${classCode}/students`, {
+            const res = await fetch(`/api/locations/${locationID}/employees`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ studentId: user.id }), 
+                body: JSON.stringify({ employeeID: user.id }), 
             });
     
             if (!res.ok) {
-                console.error("Failed to add student to class");
+                console.error("Failed to add employee to location");
                 const errorResponse = await res.json();
                 console.error("Server response:", errorResponse); 
             }
         } catch (error) {
-            console.error("Error adding student to class:", error);
+            console.error("Error adding employee to location:", error);
         }
     };
     
 
-    const removeClass = async (classId) => {
+    const removeLocation = async (locationName) => {
+        const location = availableLocations.find(loc => loc.locationName === locationName);
+        if (!location) {
+            console.error("Location not found");
+            return;
+        }
+
         try {
-            const res = await fetch(`/api/users/${id}/classes`, {
+            const res = await fetch(`/api/users/${id}/locations`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ classId }),
+                body: JSON.stringify({ locationID: location.locationID }),
             });
 
             if (res.ok) {
-                setClasses((prevClasses) => prevClasses.filter(c => c !== classId));
+                setLocations((prevLocations) => prevLocations.filter(c => c !== locationName));
             } else {
-                console.error("Failed to remove class");
+                console.error("Failed to remove location");
             }
         } catch (error) {
-            console.error("Error removing class:", error);
+            console.error("Error removing location:", error);
         }
     };
 
@@ -157,29 +178,34 @@ export default function UserDetails({ params }) {
                 </Card>
             </div>
 
-            <h2 className="text-xl font-bold mt-6">Classes</h2>
+            <h2 className="text-xl font-bold mt-6">Locations</h2>
             <div className="mb-4">
                 <select
-                    value={selectedClassId}
-                    onChange={(e) => setSelectedClassId(e.target.value)}
+                    value={selectedLocationID}
+                    onChange={(e) => setSelectedLocationID(e.target.value)}
                     className="border p-2 rounded"
                 >
-                    <option value="">Select a class</option>
-                    {availableClasses.map((classItem) => (
-                        <option key={classItem._id} value={classItem._id}>
-                            {classItem.className} ({classItem.classCode})
+                    <option value="">Select a Location</option>
+                    {availableLocations.map((locationItem) => (
+                        <option key={locationItem._id} value={locationItem._id}>
+                            {locationItem.locationName} ({locationItem.locationID})
                         </option>
                     ))}
                 </select>
-                <button onClick={addClass} className="ml-2 bg-blue-500 text-white p-2 rounded">Add Class</button>
+                <button onClick={addLocation} className="ml-2 bg-blue-500 text-white p-2 rounded">Add Location</button>
             </div>
             <ul>
-                {classes.map((classId) => (
-                    <li key={classId} className="flex justify-between items-center">
-                        <span>{classId}</span>
-                        <button onClick={() => removeClass(classId)} className="text-red-500">Remove</button>
+            {Locations.length > 0 ? (
+                Locations.map((locationName) => (
+                    <li key={locationName} className="flex justify-between items-center">
+                        <span>{locationName}</span>
+                        <button onClick={() => removeLocation(locationName)} className="text-red-500">Remove</button>
                     </li>
-                ))}
+                ))
+            ) : (
+                <p>No locations assigned.</p>
+            )}
+
             </ul>
         </div>
     );

@@ -13,8 +13,8 @@ import {
 } from "@/app/components/ui/breadcrumb";
 
 import AdminDashboard from "@/app/components/demo/dashboard/adminDashboard";
-import StudentDashboard from "@/app/components/demo/dashboard/studentDashboard";
-import TeacherDashboard from "@/app/components/demo/dashboard/teacherDashboard";
+import EmployeeDashboard from "@/app/components/demo/dashboard/employeeDashboard";
+import ManagerDashboard from "@/app/components/demo/dashboard/managerDashboard";
 import Unauthorised from "@/app/components/demo/dashboard/unauthorised";
 
 export default function DashboardPage() {
@@ -31,11 +31,11 @@ export default function DashboardPage() {
     case "admin":
       dashboardContent = <AdminDashboard />;
       break;
-    case "student":
-      dashboardContent = <StudentDashboard />;
+    case "employee":
+      dashboardContent = <EmployeeDashboard />;
       break;
-    case "teacher":
-      dashboardContent = <TeacherDashboard />;
+    case "manager":
+      dashboardContent = <ManagerDashboard />;
       break;
     default:
       dashboardContent = <Unauthorised />;

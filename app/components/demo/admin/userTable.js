@@ -38,11 +38,11 @@ export default function UserTable() {
         { accessorKey: "password", header: "Password" },
         { accessorKey: "role", header: "Role" },
         {
-            accessorKey: "classIds",
-            header: "Class IDs",
+            accessorKey: "locationIDs",
+            header: "Location IDs",
             cell: ({ row }) => {
-                const classIds = row.getValue("classIds");
-                return Array.isArray(classIds) ? classIds.join(", ") : "N/A";
+                const locationIDs = row.getValue("locationIDs");
+                return Array.isArray(locationIDs) ? locationIDs.join(", ") : "N/A";
             },
         },
     ];
@@ -63,8 +63,8 @@ export default function UserTable() {
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="all">All Roles</SelectItem>
-                        <SelectItem value="student">Student</SelectItem>
-                        <SelectItem value="teacher">Teacher</SelectItem>
+                        <SelectItem value="employee">Employee</SelectItem>
+                        <SelectItem value="manager">Manager</SelectItem>
                         <SelectItem value="admin">Admin</SelectItem>
                     </SelectContent>
                 </Select>

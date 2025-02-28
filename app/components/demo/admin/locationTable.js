@@ -8,58 +8,42 @@ import {
     flexRender
 } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/app/components/ui/table";
+import Link from "next/link";
 
-export default function AttendanceTable() {
-    const [attendanceRecords, setAttendanceRecords] = useState([]);
+export default function locationTable() {
+    const [locations, setLocations] = useState([]);
 
-    // Fetch attendance data from the API
+    // Fetch locations from the API
     useEffect(() => {
-        const fetchAttendance = async () => {
+        const fetchLocations = async () => {
             try {
-                const res = await fetch("/api/attendance");
+                const res = await fetch("/api/locations");
                 const data = await res.json();
-                setAttendanceRecords(data);
+                setLocations(data);
             } catch (error) {
-                console.error("Error fetching attendance:", error);
+                console.error("Error fetching locations:", error);
             }
         };
-        fetchAttendance();
+        fetchLocations();
     }, []);
 
     const columns = [
-        { accessorKey: "UserID", header: "User ID" },
+        { accessorKey: "locationName", header: "Location Name" },
+        { accessorKey: "locationID", header: "Location ID" },
+        { accessorKey: "managerID", header: "Manager ID" },
         {
-            accessorKey: "locationID",
-            header: "Location ID",
-            cell: ({ row }) => {
-                const locationID = row.original.locationID;
-                return locationID ? locationID : "N/A"; // Handle null locationID
-            },
-        },
-        {
-            id: "attendance",
-            header: "Attendance",
-            cell: ({ row }) => {
-                const attendance = row.original.attendance; // Access attendance directly from original row data
-                return (
-                    <div>
-                        {Array.isArray(attendance) && attendance.length > 0 ? (
-                            attendance.map((attend, index) => (
-                                <div key={index}>
-                                    {new Date(attend).toLocaleString()}
-                                </div>
-                            ))
-                        ) : (
-                            <span>No attendance records</span>
-                        )}
-                    </div>
-                );
-            },
+            id: "actions",
+            header: "Actions",
+            cell: ({ row }) => (
+                <Link href={`/users/locations/${row.getValue("locationID")}`} className="text-black-500 hover:underline">
+                    View Details
+                </Link>
+            ),
         },
     ];
 
     const table = useReactTable({
-        data: attendanceRecords,
+        data: locations,
         columns,
         getCoreRowModel: getCoreRowModel(),
     });
@@ -94,7 +78,7 @@ export default function AttendanceTable() {
                             ) : (
                                 <TableRow>
                                     <TableCell colSpan={columns.length} className="text-center py-4">
-                                        No attendance records found
+                                        No locations found
                                     </TableCell>
                                 </TableRow>
                             )}

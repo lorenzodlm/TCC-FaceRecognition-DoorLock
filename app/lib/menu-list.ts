@@ -67,19 +67,19 @@ const adminMenuList: Group[] = [
         ]
       },
       {
-        href: "/users/classes",
-        label: "Classes",
+        href: "/users/locations",
+        label: "Locations",
         active: false,
         icon: Bookmark,
         submenus: [
           {
-            href: "/users/classes/",
-            label: "Classes",
+            href: "/users/locations/",
+            label: "Locations",
             active: false,
           },
           {
-            href: "/users/classes/add",
-            label: "Add Class",
+            href: "/users/locations/add",
+            label: "Add Location",
             active: false,
           },
         ]
@@ -100,9 +100,9 @@ const adminMenuList: Group[] = [
   }
 ];
 
-const teacherMenuList: Group[] = [
+const managerMenuList: Group[] = [
   {
-    groupLabel: "Teacher Menu",
+    groupLabel: "Manager Menu",
     menus: [
       {
         href: "/dashboard",
@@ -112,8 +112,8 @@ const teacherMenuList: Group[] = [
         submenus: []
       },
       {
-        href: "/teacherClasses",
-        label: "My Classes",
+        href: "/managerLocations",
+        label: "My Locations",
         active: false,
         icon: SquarePen,
         submenus: []
@@ -134,9 +134,9 @@ const teacherMenuList: Group[] = [
   }
 ];
 
-const studentMenuList: Group[] = [
+const employeeMenuList: Group[] = [
   {
-    groupLabel: "Student Menu",
+    groupLabel: "Employee Menu",
     menus: [
       {
         href: "/dashboard",
@@ -146,8 +146,8 @@ const studentMenuList: Group[] = [
         submenus: []
       },
       {
-        href: "/studentClasses",
-        label: "My Classes",
+        href: "/employeeLocations",
+        label: "My Locations",
         active: false,
         icon: Bookmark,
         submenus: []
@@ -184,11 +184,11 @@ export function getMenuList(pathname: string, role: string): Group[] {
     case "admin":
       menuList = adminMenuList;
       break;
-    case "student":
-      menuList = studentMenuList;
+    case "employee":
+      menuList = employeeMenuList;
       break;
-    case "teacher":
-      menuList = teacherMenuList;
+    case "manager":
+      menuList = managerMenuList;
       break;
     default:
       menuList = noUserMenuList; // Not signed in

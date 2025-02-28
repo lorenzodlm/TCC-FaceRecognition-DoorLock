@@ -35,7 +35,7 @@ export function SheetMenu() {
                 asChild
             >
                 <Link href="/dashboard" className="flex items-center gap-2">
-                <SheetTitle className="font-bold text-lg">AfterFall</SheetTitle>
+                <SheetTitle className="font-bold text-lg">TCC - AfterFall</SheetTitle>
                 </Link>
             </Button>
             </SheetHeader>

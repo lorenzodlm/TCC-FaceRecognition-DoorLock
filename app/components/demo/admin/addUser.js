@@ -14,7 +14,7 @@ export default function AddUser() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [role, setRole] = useState("student");
+    const [role, setRole] = useState("employee");
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
 
@@ -39,7 +39,7 @@ export default function AddUser() {
                 setName("");
                 setEmail("");
                 setPassword("");
-                setRole("student");
+                setRole("employee");
             } else {
                 setError(data.error || "Failed to add user");
             }
@@ -72,8 +72,8 @@ export default function AddUser() {
                                     <SelectValue placeholder="Select a role" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="student">Student</SelectItem>
-                                    <SelectItem value="teacher">Teacher</SelectItem>
+                                    <SelectItem value="employee">Employee</SelectItem>
+                                    <SelectItem value="manager">Manager</SelectItem>
                                     <SelectItem value="admin">Admin</SelectItem>
                                 </SelectContent>
                             </Select>
