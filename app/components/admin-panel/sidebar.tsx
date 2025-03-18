@@ -38,7 +38,7 @@ export function Sidebar() {
           asChild
         >
           <Link href="/dashboard" className="flex items-center gap-2">
-            <div className="relative flex justify-center items-center mt-12 py-4">
+            <div className="relative flex justify-center items-center mt-12 py-4 pb-6">
               <Image
                 src="/tcc-logo.png"
                 alt="TCC Logo"
