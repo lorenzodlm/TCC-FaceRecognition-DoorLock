@@ -5,7 +5,7 @@ export async function GET(req) {
         // Fetch all attendance records
         const attendanceData = await Attendance.find();
 
-        console.log("Attendance Data:", attendanceData);
+        // console.log("Attendance Data:", attendanceData);
 
         return new Response(JSON.stringify(attendanceData), {
             status: 200,

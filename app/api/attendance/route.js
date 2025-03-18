@@ -28,7 +28,7 @@ export async function GET(req) {
             });
         }
 
-        console.log("Attendance Data:", attendanceData);
+        // console.log("Attendance Data:", attendanceData);
 
         return new Response(JSON.stringify(attendanceData), {
             status: 200,
